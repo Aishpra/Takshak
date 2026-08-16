@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0a08">
+  <title>Booking — Book an Artist with Takshak Entertainment</title>
+  <meta name="description" content="Book an artist or bring Takshak in to produce your next concert, festival, corporate event or private show. Tell us what you're building and we'll get back to you.">
+  <link rel="canonical" href="https://takshakent.com/booking/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Takshak Entertainment">
+  <meta property="og:title" content="Booking — Book an Artist with Takshak Entertainment">
+  <meta property="og:description" content="Book an artist or bring Takshak in to produce your next concert, festival, corporate event or private show. Tell us what you're building and we'll get back to you.">
+  <meta property="og:url" content="https://takshakent.com/booking/">
+  <meta property="og:image" content="https://takshakent.com/assets/takshak-og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Booking — Book an Artist with Takshak Entertainment">
+  <meta name="twitter:description" content="Book an artist or bring Takshak in to produce your next concert, festival, corporate event or private show. Tell us what you're building and we'll get back to you.">
+  <meta name="twitter:image" content="https://takshakent.com/assets/takshak-og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="preloader" aria-hidden="true">
+    <div class="preloader-mark">
+      <img src="/assets/takshak-symbol.png" alt="">
+      <span></span>
+    </div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+    <a class="brand" href="/" aria-label="Takshak home">
+      <img src="/assets/takshak-white-logo.png" alt="Takshak Entertainment">
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="/events/" data-nav="events">Events</a>
+      <a href="/artists/" data-nav="artists">Artists</a>
+      <a href="/about/" data-nav="about">About</a>
+      <a href="/contact/" data-nav="contact">Contact</a>
+    </nav>
+    <a class="button button-small button-primary magnetic" data-track="header_book" href="/booking/">Book an Artist <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile navigation">
+      <a href="/events/" data-nav="events"><span>01</span>Events</a>
+      <a href="/artists/" data-nav="artists"><span>02</span>Artists</a>
+      <a href="/about/" data-nav="about"><span>03</span>About</a>
+      <a href="/contact/" data-nav="contact"><span>04</span>Contact</a>
+    </nav>
+    <div class="mobile-menu-foot">
+      <a class="button button-primary" data-track="mobile_menu_book" href="/booking/">Book an Artist <span aria-hidden="true">↗</span></a>
+      <div class="mobile-menu-social">
+        <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+<section class="page-header section-pad">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Booking</span></nav>
+      <p class="eyebrow reveal"><span class="eyebrow-dot"></span> Let's work together</p>
+      <h1 class="reveal reveal-delay-1">Book an artist.<br><em>Build an experience.</em></h1>
+      <p class="page-header-intro reveal reveal-delay-2">Concerts, festivals, corporate events, private shows, brand activations — if it needs an artist, a stage, or both, this is where it starts. Tell us what you're building and we'll get back to you.</p>
+    </section>
+
+    <section class="section-pad booking-section">
+      <form class="booking-form reveal" id="booking-form" novalidate>
+        <div class="booking-form-grid">
+          <label>Full name<input name="name" type="text" autocomplete="name" required placeholder="Your name"><span class="field-error" aria-live="polite"></span></label>
+          <label>Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"><span class="field-error" aria-live="polite"></span></label>
+          <label>Phone number<input name="phone" type="tel" autocomplete="tel" placeholder="+977"></label>
+          <label>Company / organisation<input name="company" type="text" placeholder="Optional"></label>
+          <label>Event type
+            <select name="eventType">
+              <option value="">Select one</option>
+              <option>Concert</option>
+              <option>Festival</option>
+              <option>Corporate event</option>
+              <option>Private event</option>
+              <option>Brand activation</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Event date<input name="eventDate" type="date"></label>
+          <label>Location / city<input name="location" type="text" placeholder="e.g. Dharan, Itahari"></label>
+          <label>Artist
+            <select name="artist" id="booking-artist-select">
+              <option value="">No specific artist — I need recommendations</option>
+              <option value="bipul-chettri">Bipul Chettri</option><option value="albatross">Albatross</option><option value="pahelo-batti-muni">Pahelo Batti Muni</option>
+            </select>
+          </label>
+          <label>Estimated audience
+            <select name="audience">
+              <option value="">Select a range</option>
+              <option>Under 200</option>
+              <option>200–500</option>
+              <option>500–1,000</option>
+              <option>1,000–5,000</option>
+              <option>5,000+</option>
+            </select>
+          </label>
+          <label>Budget range
+            <select name="budget">
+              <option value="">Select a range</option>
+              <option>Under Rs. 1,00,000</option>
+              <option>Rs. 1,00,000 – 5,00,000</option>
+              <option>Rs. 5,00,000 – 10,00,000</option>
+              <option>Above Rs. 10,00,000</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+        </div>
+        <label class="booking-message">Tell us about it<textarea name="message" rows="5" placeholder="What are you building? Venue, audience, vibe — the more detail, the better."></textarea></label>
+        <button class="button button-primary button-submit magnetic" type="submit">Send booking request <span aria-hidden="true">↗</span></button>
+        <p class="form-message" id="booking-form-message" role="status" aria-live="polite"></p>
+        <small class="privacy-note">Your details go straight to Takshak. We do not sell your information.</small>
+      </form>
+      <aside class="booking-aside reveal reveal-delay-1">
+        <div class="booking-aside-card">
+          <span class="footer-col-title">Prefer to talk directly?</span>
+          <a class="text-link" href="mailto:hello@takshakent.com">hello@takshakent.com <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="https://wa.me/9779800000000" target="_blank" rel="noreferrer">WhatsApp Takshak <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="booking-aside-card">
+          <span class="footer-col-title">What we produce</span>
+          <ul class="booking-aside-list">
+            <li>Concerts &amp; multi-artist nights</li>
+            <li>Festivals</li>
+            <li>Corporate &amp; brand events</li>
+            <li>Private events</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+  </main>
+
+  <div class="mobile-ticket-bar">
+    <span><b>Takshak Live</b><small>Early Bird · Rs. 800</small></span>
+    <a class="button button-primary" data-track="mobile_bar_book" href="/booking/">Book <span aria-hidden="true">↗</span></a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-cta">
+      <p class="eyebrow">Let's build something</p>
+      <h2>Ready to create<br><em>something unforgettable?</em></h2>
+      <a class="button button-primary magnetic" data-track="footer_cta_book" href="/booking/">Book an Artist <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="/"><img src="/assets/takshak-white-logo.png" alt="Takshak Entertainment"></a>
+        <p>We create moments that move people.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">FB</a>
+          <a href="https://wa.me/9779800000000" target="_blank" rel="noreferrer" aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Explore</span>
+        <a href="/events/">Events</a>
+        <a href="/artists/">Artists</a>
+        <a href="/about/">About</a>
+        <a href="/booking/">Booking</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Flagship Event</span>
+        <a href="/events/takshak-live-2026/">Takshak Live</a>
+        <span class="footer-static">03 October 2026</span>
+        <span class="footer-static">Dharan Cricket Stadium</span>
+      </div>
+      <div class="footer-col footer-col-cta">
+        <span class="footer-col-title">Get in touch</span>
+        <a href="mailto:hello@takshakent.com">hello@takshakent.com</a>
+        <span class="footer-static">Dharan, Nepal</span>
+        <a class="button button-dark" data-track="footer_contact" href="/contact/">Contact Takshak <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Takshak Entertainment. All rights reserved.</span>
+      <span class="footer-mark">Dharan, Nepal</span>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
