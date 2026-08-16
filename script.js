@@ -11,15 +11,113 @@
     if(typeof window.gtag==='function') window.gtag('event',name,payload);
     if(typeof window.fbq==='function') window.fbq('trackCustom',name,payload);
   };
+
+  /* ============ Artist data ============
+     Single source of truth for the lineup. To add/replace an artist, edit this array —
+     nothing else in the codebase needs to change. Swap `image` to a real photo path
+     (e.g. assets/artists/bipul-chettri.jpg) and it replaces the placeholder automatically;
+     leave it pointing at a file that doesn't exist yet and the placeholder stays in place.
+     For the WordPress migration, this array maps directly onto an ACF repeater field
+     looped server-side — same shape, same fields. */
+  const ARTISTS=[
+    {
+      name:'Bipul Chettri',
+      role:'Headliner',
+      genre:'Folk · Modern Nepali',
+      description:"Folk stories with a modern pulse — the songwriter who turned Nepali folk into something an entire generation sings along to.",
+      image:'assets/artists/bipul-chettri.jpg',
+      featured:true
+    },
+    {
+      name:'Albatross',
+      role:'Live band',
+      genre:'Rock',
+      description:'Raw guitars, big rooms, no holding back — one of the most explosive live acts on the circuit.',
+      image:'assets/artists/albatross.jpg'
+    },
+    {
+      name:'Pahelo Batti Muni',
+      role:'Special set',
+      genre:'Indie',
+      description:'Indie warmth for the late-night hearts.',
+      image:'assets/artists/pahelo-batti-muni.jpg'
+    }
+  ];
+
+  const initials=name=>name.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  const slugify=name=>name.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+
+  function photoMarkup(artist,figureClass){
+    return `<div class="${figureClass}">`
+      +`<span class="artist-photo-placeholder" aria-hidden="true"><span>${initials(artist.name)}</span></span>`
+      +`<img class="artist-photo-img" alt="${artist.name} — live" loading="lazy" decoding="async">`
+      +`</div>`;
+  }
+
+  function attachPhoto(root,artist){
+    const img=$('.artist-photo-img',root);
+    if(!img) return;
+    img.addEventListener('load',()=>img.classList.add('is-loaded'));
+    img.addEventListener('error',()=>img.remove());
+    img.src=artist.image;
+  }
+
+  function renderArtists(){
+    const featuredMount=$('#artist-featured-mount');
+    const gridMount=$('#artist-grid-mount');
+    if(!featuredMount || !gridMount) return;
+
+    const featured=ARTISTS.find(a=>a.featured)||ARTISTS[0];
+    const supporting=ARTISTS.filter(a=>a!==featured);
+
+    const featureEl=document.createElement('article');
+    featureEl.className='artist-feature reveal';
+    featureEl.innerHTML=photoMarkup(featured,'artist-feature-photo')
+      +`<div class="artist-feature-info">`
+      +`<span class="artist-tag">${featured.role}</span>`
+      +`<h3>${featured.name}</h3>`
+      +(featured.genre?`<span class="artist-genre">${featured.genre}</span>`:'')
+      +`<p>${featured.description}</p>`
+      +`<a class="text-link" href="#passes" data-track="artist_${slugify(featured.name)}">Reserve for ${featured.name.split(' ')[0]} <span aria-hidden="true">↗</span></a>`
+      +`</div>`;
+    featuredMount.appendChild(featureEl);
+    attachPhoto(featureEl,featured);
+
+    const frag=document.createDocumentFragment();
+    supporting.forEach(artist=>{
+      const cardEl=document.createElement('article');
+      cardEl.className='artist-card reveal';
+      cardEl.innerHTML=photoMarkup(artist,'artist-card-photo')
+        +`<div class="artist-card-info">`
+        +`<span class="artist-tag">${artist.role}</span>`
+        +`<h3>${artist.name}</h3>`
+        +(artist.genre?`<span class="artist-genre">${artist.genre}</span>`:'')
+        +`<p>${artist.description}</p>`
+        +`<a class="artist-card-link" href="#passes" data-track="artist_${slugify(artist.name)}">Reserve <span aria-hidden="true">↗</span></a>`
+        +`</div>`;
+      frag.appendChild(cardEl);
+      attachPhoto(cardEl,artist);
+    });
+    gridMount.insertBefore(frag,gridMount.firstChild);
+  }
+  renderArtists();
+
   $$('[data-track]').forEach(el=>el.addEventListener('click',()=>takshakTrack(el.dataset.track,{button_location:el.closest('section')?.id||'navigation'})));
 
   const progress=$('#scroll-progress-bar');
   const updateProgress=()=>{const max=document.documentElement.scrollHeight-window.innerHeight;progress.style.width=(max>0?(window.scrollY/max)*100:0)+'%'};
   window.addEventListener('scroll',updateProgress,{passive:true}); updateProgress();
 
+  /* Full-screen mobile menu */
   const menu=$('.menu-toggle'), mobile=$('#mobile-menu');
-  menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!open));mobile.hidden=open;});
-  $$('#mobile-menu a').forEach(a=>a.addEventListener('click',()=>{menu.setAttribute('aria-expanded','false');mobile.hidden=true;}));
+  const setMenu=open=>{
+    menu.setAttribute('aria-expanded',String(open));
+    mobile.classList.toggle('is-open',open);
+    document.documentElement.style.overflow=open?'hidden':'';
+  };
+  menu?.addEventListener('click',()=>setMenu(menu.getAttribute('aria-expanded')!=='true'));
+  $$('#mobile-menu a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  window.addEventListener('keydown',e=>{if(e.key==='Escape') setMenu(false)});
 
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target)}}),{threshold:.12});
   $$('.reveal').forEach(el=>observer.observe(el));
@@ -34,6 +132,19 @@
       });
       el.addEventListener('mouseleave',()=>{el.style.transform=''});
     });
+  }
+
+  /* Subtle scroll-linked parallax on the hero medallion — capped, disabled under reduced motion. */
+  const heroParallax=$('#hero-parallax');
+  if(heroParallax && !reducedMotion){
+    let ticking=false;
+    const applyParallax=()=>{
+      const max=window.innerHeight;
+      const y=Math.min(Math.max(window.scrollY,0),max);
+      heroParallax.style.transform=`translateY(${(y/max)*36}px)`;
+      ticking=false;
+    };
+    window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(applyParallax);ticking=true}},{passive:true});
   }
 
   /* Add-to-calendar: builds an .ics file client-side, no backend required. */
