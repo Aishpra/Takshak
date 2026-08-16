@@ -1,0 +1,77 @@
+<!--META {"title":"Booking — Book an Artist with Takshak Entertainment","description":"Book an artist or bring Takshak in to produce your next concert, festival, corporate event or private show. Tell us what you're building and we'll get back to you."}-->
+    <section class="page-header section-pad">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Booking</span></nav>
+      <p class="eyebrow reveal"><span class="eyebrow-dot"></span> Let's work together</p>
+      <h1 class="reveal reveal-delay-1">Book an artist.<br><em>Build an experience.</em></h1>
+      <p class="page-header-intro reveal reveal-delay-2">Concerts, festivals, corporate events, private shows, brand activations — if it needs an artist, a stage, or both, this is where it starts. Tell us what you're building and we'll get back to you.</p>
+    </section>
+
+    <section class="section-pad booking-section">
+      <form class="booking-form reveal" id="booking-form" novalidate>
+        <div class="booking-form-grid">
+          <label>Full name<input name="name" type="text" autocomplete="name" required placeholder="Your name"><span class="field-error" aria-live="polite"></span></label>
+          <label>Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"><span class="field-error" aria-live="polite"></span></label>
+          <label>Phone number<input name="phone" type="tel" autocomplete="tel" placeholder="+977"></label>
+          <label>Company / organisation<input name="company" type="text" placeholder="Optional"></label>
+          <label>Event type
+            <select name="eventType">
+              <option value="">Select one</option>
+              <option>Concert</option>
+              <option>Festival</option>
+              <option>Corporate event</option>
+              <option>Private event</option>
+              <option>Brand activation</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Event date<input name="eventDate" type="date"></label>
+          <label>Location / city<input name="location" type="text" placeholder="e.g. Dharan, Itahari"></label>
+          <label>Artist
+            <select name="artist" id="booking-artist-select">
+              <option value="">No specific artist — I need recommendations</option>
+              <!--ARTIST_OPTIONS-->
+            </select>
+          </label>
+          <label>Estimated audience
+            <select name="audience">
+              <option value="">Select a range</option>
+              <option>Under 200</option>
+              <option>200–500</option>
+              <option>500–1,000</option>
+              <option>1,000–5,000</option>
+              <option>5,000+</option>
+            </select>
+          </label>
+          <label>Budget range
+            <select name="budget">
+              <option value="">Select a range</option>
+              <option>Under Rs. 1,00,000</option>
+              <option>Rs. 1,00,000 – 5,00,000</option>
+              <option>Rs. 5,00,000 – 10,00,000</option>
+              <option>Above Rs. 10,00,000</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+        </div>
+        <label class="booking-message">Tell us about it<textarea name="message" rows="5" placeholder="What are you building? Venue, audience, vibe — the more detail, the better."></textarea></label>
+        <button class="button button-primary button-submit magnetic" type="submit">Send booking request <span aria-hidden="true">↗</span></button>
+        <p class="form-message" id="booking-form-message" role="status" aria-live="polite"></p>
+        <small class="privacy-note">Your details go straight to Takshak. We do not sell your information.</small>
+      </form>
+      <aside class="booking-aside reveal reveal-delay-1">
+        <div class="booking-aside-card">
+          <span class="footer-col-title">Prefer to talk directly?</span>
+          <a class="text-link" href="mailto:{{email}}">{{email}} <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="{{whatsapp}}" target="_blank" rel="noreferrer">WhatsApp Takshak <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="booking-aside-card">
+          <span class="footer-col-title">What we produce</span>
+          <ul class="booking-aside-list">
+            <li>Concerts &amp; multi-artist nights</li>
+            <li>Festivals</li>
+            <li>Corporate &amp; brand events</li>
+            <li>Private events</li>
+          </ul>
+        </div>
+      </aside>
+    </section>

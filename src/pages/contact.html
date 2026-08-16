@@ -1,0 +1,40 @@
+<!--META {"title":"Contact — Takshak Entertainment","description":"Get in touch with Takshak Entertainment — for artist bookings, event production, press or general enquiries."}-->
+    <section class="page-header section-pad">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Contact</span></nav>
+      <p class="eyebrow reveal"><span class="eyebrow-dot"></span> Get in touch</p>
+      <h1 class="reveal reveal-delay-1">Let's talk<br><em>about it.</em></h1>
+      <p class="page-header-intro reveal reveal-delay-2">Booking enquiries, press, partnerships, or just a question about the next show — this is the fastest way to reach Takshak.</p>
+    </section>
+
+    <section class="section-pad contact-section">
+      <div class="contact-info reveal">
+        <div class="booking-aside-card">
+          <span class="footer-col-title">Email</span>
+          <a class="text-link" href="mailto:{{email}}">{{email}} <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="booking-aside-card">
+          <span class="footer-col-title">WhatsApp</span>
+          <a class="text-link" href="{{whatsapp}}" target="_blank" rel="noreferrer">Message Takshak <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="booking-aside-card">
+          <span class="footer-col-title">Based in</span>
+          <span class="footer-static">{{location}}</span>
+        </div>
+        <div class="booking-aside-card">
+          <span class="footer-col-title">Follow</span>
+          <div class="footer-social">
+            <a href="{{instagram}}" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
+            <a href="{{facebook}}" target="_blank" rel="noreferrer" aria-label="Facebook">FB</a>
+          </div>
+        </div>
+        <a class="button button-dark" href="/booking/">Looking to book an artist? <span aria-hidden="true">↗</span></a>
+      </div>
+      <form class="guest-form contact-form reveal reveal-delay-1" id="contact-form" novalidate>
+        <label>Full name<input name="name" type="text" autocomplete="name" required placeholder="Your name"><span class="field-error" aria-live="polite"></span></label>
+        <label>Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"><span class="field-error" aria-live="polite"></span></label>
+        <label>Message<textarea name="message" rows="5" required placeholder="What can we help with?"></textarea><span class="field-error" aria-live="polite"></span></label>
+        <button class="button button-primary button-submit magnetic" type="submit">Send message <span aria-hidden="true">↗</span></button>
+        <p class="form-message" id="contact-form-message" role="status" aria-live="polite"></p>
+        <small class="privacy-note">Your details stay with Takshak. We do not sell your information.</small>
+      </form>
+    </section>
