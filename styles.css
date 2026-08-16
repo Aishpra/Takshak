@@ -132,7 +132,7 @@ h1{font-size:clamp(48px,7vw,104px);max-width:780px;margin-bottom:28px}
 .hero-symbol img{width:60%;opacity:.9;filter:sepia(.5) saturate(2.4) hue-rotate(-8deg) brightness(1.05)}
 .hero-date{position:absolute;left:10%;top:17%;display:grid;text-align:center;color:var(--gold-soft);font-size:11px;line-height:1.05;letter-spacing:.15em;z-index:1;font-family:var(--sans)}
 .hero-date strong{font-family:var(--serif);font-weight:500;font-size:52px;letter-spacing:-.02em}
-.hero-note{position:absolute;font-size:10.5px;line-height:1.15;letter-spacing:.09em;text-transform:uppercase;z-index:1;font-family:var(--sans)}
+.hero-note{position:absolute;font-size:10.5px;line-height:1.15;letter-spacing:.09em;text-transform:uppercase;z-index:1;font-family:var(--sans);color:var(--text-on-ink)}
 .hero-note span{color:var(--muted-on-ink);letter-spacing:0}
 .note-top{right:8%;top:23%;text-align:right}
 .note-bottom{left:10%;bottom:17%}
