@@ -109,7 +109,10 @@ h1{font-size:clamp(48px,7vw,104px);max-width:780px;margin-bottom:28px}
 @keyframes scrollCue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* The dark medallion is a deliberate small accent (like a wax seal on stationery), not a section background. */
-.hero-art{width:100%;height:min(560px,62vw);min-height:420px;max-width:520px;margin-inline:auto;position:relative;overflow:hidden;border-radius:230px 230px 22px 22px;isolation:isolate;
+.hero-art-wrap{position:relative;width:100%;max-width:600px;min-height:520px;margin-inline:auto;display:flex;align-items:center;justify-content:center}
+.hero-ring{position:absolute;inset:0;width:100%;height:100%;animation:motifSpin 90s linear infinite;pointer-events:none}
+.hero-ring text{font:600 12px var(--sans);letter-spacing:.2em;fill:var(--gold-deep);text-transform:uppercase}
+.hero-art{width:60%;height:min(360px,42vw);min-height:300px;max-width:340px;position:relative;overflow:hidden;border-radius:230px 230px 22px 22px;isolation:isolate;
   background:radial-gradient(circle at 52% 46%,rgba(201,160,90,.28),transparent 24%),radial-gradient(circle at 50% 52%,#26201a 0,#1a1611 48%,#120f0b 78%);
   border:1px solid rgba(201,160,90,.32);box-shadow:0 30px 70px rgba(42,35,24,.28),0 0 0 10px rgba(242,232,211,.5),0 0 0 11px rgba(42,35,24,.1)}
 .hero-art::before{content:"";position:absolute;inset:8%;border:1px solid rgba(241,231,210,.16);border-radius:50%;transform:rotate(-14deg) scaleY(.88)}
@@ -164,17 +167,45 @@ h2{font-size:clamp(42px,5.6vw,74px);margin-bottom:0}
 /* ============ Lineup ============ */
 .section-heading{display:flex;justify-content:space-between;gap:55px;align-items:end;margin-bottom:64px}
 .section-heading>p{max-width:360px;color:var(--muted-on-paper);margin:0;font-size:15px}
-.artist-list{border-top:1px solid var(--line-on-paper)}
-.artist-row{min-height:150px;display:grid;grid-template-columns:90px 1fr 260px;align-items:center;border-bottom:1px solid var(--line-on-paper);transition:background .28s ease,padding .28s ease}
-.artist-row:hover{background:rgba(109,35,49,.05);padding-inline:20px}
-.artist-row-featured{background:rgba(156,119,54,.06)}
-.artist-number{font-size:12px;color:var(--gold-deep);font-family:var(--sans);font-weight:600}
-.artist-name h3{font-size:clamp(30px,4.2vw,58px);margin-bottom:9px;font-weight:500}
-.artist-name p,.artist-meta span{color:var(--muted-on-paper);font-size:13px;margin-bottom:0}
-.artist-meta{text-align:right}
-.artist-meta span{display:block;text-transform:uppercase;letter-spacing:.09em;font-size:10px;margin-bottom:16px}
-.artist-meta a{font-size:13px;border-bottom:1px solid var(--maroon);padding-bottom:5px}
-.artist-meta a span{display:inline;color:var(--maroon);font-size:14px}
+.artist-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.artist-card{position:relative;background:var(--paper-card);border:1px solid var(--line-on-paper);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:16px;box-shadow:0 14px 30px rgba(42,35,24,.06);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s ease}
+.artist-card-featured{background:linear-gradient(165deg,#fbf3e1,#f3e6c9);border-color:rgba(156,119,54,.4)}
+.artist-card-top{display:flex;align-items:center;justify-content:space-between}
+.artist-number{font-size:11px;letter-spacing:.14em;color:var(--gold-deep);font-weight:600;font-family:var(--sans)}
+.artist-monogram{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(150deg,var(--gold-soft),var(--gold) 55%,var(--gold-deep));color:#241a0a;font-family:var(--serif);font-weight:600;font-size:22px}
+.artist-card h3{font-size:clamp(24px,2.6vw,32px);font-weight:500}
+.artist-card>p{color:var(--muted-on-paper);font-size:14px;flex:1;margin:0}
+.artist-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line-on-paper);font-size:12px}
+.artist-card-foot span{text-transform:uppercase;letter-spacing:.09em;color:var(--muted-on-paper);font-size:10.5px}
+.artist-card-foot a{border-bottom:1px solid var(--maroon);padding-bottom:3px}
+.artist-card-foot a span{color:var(--maroon)}
+
+/* Mystery 4th act — a wax-seal envelope that cracks open on click (native <details>, no JS required to function). */
+.mystery-card{padding:0}
+.mystery-summary{list-style:none;cursor:pointer;padding:28px;display:flex;flex-direction:column;gap:12px;-webkit-tap-highlight-color:transparent}
+.mystery-summary::-webkit-details-marker{display:none}
+.mystery-summary::marker{content:""}
+.mystery-seal{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--gold-soft);font-family:var(--serif);font-size:22px;position:relative;transition:transform .5s var(--ease)}
+.mystery-seal::after{content:"";position:absolute;inset:-6px;border:1px solid rgba(156,119,54,.5);border-radius:50%;animation:sealPulse 2.6s ease-in-out infinite}
+.mystery-card[open] .mystery-seal{transform:rotate(225deg)}
+.mystery-card[open] .mystery-seal::after{animation:none;opacity:0}
+@keyframes sealPulse{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.16);opacity:0}}
+.mystery-card h3{font-style:italic}
+.mystery-hint{color:var(--muted-on-paper);font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;margin:0}
+.mystery-card[open] .mystery-hint{display:none}
+.mystery-content{position:relative;padding:0 28px 28px;opacity:0;transform:translateY(8px)}
+.mystery-card[open] .mystery-content{animation:mysteryFade .55s var(--ease) forwards}
+@keyframes mysteryFade{to{opacity:1;transform:none}}
+.mystery-content>p:not(.artist-card-tagline){color:var(--muted-on-paper);font-size:13.5px;margin:0 0 16px}
+.artist-card-tagline{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--maroon);margin:0 0 10px}
+.mystery-sparks{position:absolute;left:28px;top:-28px;width:1px;height:1px;pointer-events:none}
+.mystery-sparks i{position:absolute;left:0;top:0;width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0}
+.mystery-sparks.is-bursting i{animation:sparkBurst .9s ease-out forwards}
+@keyframes sparkBurst{0%{opacity:0;transform:translate(0,0) scale(.4)}18%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}}
+
+@media(hover:hover) and (pointer:fine){
+  .artist-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(42,35,24,.14);border-color:rgba(156,119,54,.4)}
+}
 
 /* ============ The night (date & venue) ============ */
 .night-card{position:relative;max-width:720px;margin:0 auto;padding:clamp(46px,7vw,80px) clamp(30px,7vw,80px);text-align:center;background:var(--paper-card);border:1px solid rgba(109,35,49,.22);border-radius:6px 26px 8px 30px/22px 6px 30px 8px;box-shadow:0 30px 70px rgba(42,35,24,.14),inset 0 0 0 1px rgba(255,255,255,.5)}
@@ -191,16 +222,24 @@ h2{font-size:clamp(42px,5.6vw,74px);margin-bottom:0}
 .night-details strong{font-family:var(--serif);font-weight:500;font-size:16px}
 .night-actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:24px}
 
-/* ============ Passes ============ */
+/* ============ Passes (single Early Bird ticket, styled like a real ticket stub) ============ */
 .passes-heading{align-items:end}
-.pass-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.pass-card{position:relative;min-height:320px;padding:28px 26px;background:var(--paper-card);border:1px solid var(--line-on-paper);border-radius:14px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 16px 34px rgba(42,35,24,.08);transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .28s ease}
-.pass-card-featured{background:linear-gradient(165deg,#fbf3e1,#f3e6c9);border-color:rgba(156,119,54,.5)}
-.pass-top{display:flex;align-items:center;justify-content:space-between;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-on-paper)}
-.pass-tag{font-style:normal;background:linear-gradient(135deg,var(--gold-soft),var(--gold-deep));color:#241a0a;padding:4px 10px;border-radius:20px;font-size:10px;letter-spacing:.08em}
-.pass-price{font-family:var(--serif);font-weight:600;font-size:46px;letter-spacing:-.01em;color:var(--text-on-paper);margin:22px 0 14px}
-.pass-price sup{font-size:12px;font-family:var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--muted-on-paper);margin-right:6px;font-weight:500}
-.pass-card p{font-size:13.5px;color:var(--muted-on-paper);flex:1;margin-bottom:24px}
+.pass-ticket{position:relative;max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 300px;background:var(--paper-card);border:1px solid var(--line-on-paper);border-radius:18px;overflow:hidden;box-shadow:0 26px 54px rgba(42,35,24,.12);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.pass-ticket-main{padding:clamp(32px,5vw,48px)}
+.pass-ticket-eyebrow{display:block;color:var(--maroon);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+.pass-ticket-main h3{font-size:clamp(30px,4vw,44px);font-weight:500;margin-bottom:14px}
+.pass-ticket-main>p{color:var(--muted-on-paper);font-size:15px;max-width:420px;margin-bottom:22px}
+.pass-ticket-list{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--line-on-paper);display:flex;flex-direction:column;gap:10px}
+.pass-ticket-list li{position:relative;padding-left:20px;font-size:13.5px;color:var(--text-on-paper)}
+.pass-ticket-list li::before{content:"✦";position:absolute;left:0;top:0;color:var(--gold-deep);font-size:11px}
+.pass-ticket-stub{position:relative;padding:clamp(32px,5vw,40px) 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;background:linear-gradient(165deg,#fbf3e1,#f3e6c9);border-left:2px dashed rgba(42,35,24,.22)}
+.pass-ticket-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-on-paper)}
+.pass-ticket-price{font-family:var(--serif);font-weight:600;font-size:52px;letter-spacing:-.01em;color:var(--text-on-paper)}
+.pass-ticket-price sup{font-size:15px;font-family:var(--sans);letter-spacing:.02em;color:var(--muted-on-paper);margin-right:4px;font-weight:500}
+.pass-ticket-fine{font-size:11px;color:var(--muted-on-paper)}
+.pass-ticket-notch{position:absolute;left:calc(100% - 300px - 11px);width:22px;height:22px;border-radius:50%;background:var(--paper);border:1px solid var(--line-on-paper);z-index:1}
+.pass-ticket-notch-top{top:-11px}
+.pass-ticket-notch-bottom{bottom:-11px}
 .button-card{min-height:44px;padding:0 16px;font-size:12px;width:100%}
 .booking-note{display:flex;gap:16px;align-items:flex-start;margin-top:32px;padding:20px 22px;border:1px solid var(--line-on-paper);border-radius:10px;background:var(--paper-card)}
 .note-icon{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;background:var(--ink);color:var(--gold-soft);border-radius:50%;font-size:14px}
@@ -208,7 +247,7 @@ h2{font-size:clamp(42px,5.6vw,74px);margin-bottom:0}
 .booking-note p{margin:5px 0 0;max-width:650px;color:var(--muted-on-paper);font-size:12.5px}
 
 @media(hover:hover) and (pointer:fine){
-  .pass-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(42,35,24,.16);border-color:rgba(156,119,54,.5)}
+  .pass-ticket:hover{transform:translateY(-4px);box-shadow:0 32px 64px rgba(42,35,24,.18)}
 }
 
 /* ============ Moment / pull quote ============ */
@@ -271,7 +310,7 @@ details p{max-width:620px;color:var(--muted-on-paper);font-size:13.5px;margin:16
 .reveal.is-visible{opacity:1;transform:none}
 .reveal-delay{transition-delay:.14s}
 img{-webkit-user-drag:none;user-select:none}
-.button:focus-visible,.text-link:focus-visible,.social-row a:focus-visible,summary:focus-visible,.desktop-nav a:focus-visible{outline:2px solid var(--gold-deep);outline-offset:4px}
+.button:focus-visible,.text-link:focus-visible,.social-row a:focus-visible,summary:focus-visible,.desktop-nav a:focus-visible,.artist-card-foot a:focus-visible{outline:2px solid var(--gold-deep);outline-offset:4px}
 
 /* ============ Mobile sticky bar ============ */
 .mobile-ticket-bar{display:none}
@@ -279,10 +318,14 @@ img{-webkit-user-drag:none;user-select:none}
 /* ============ Responsive ============ */
 @media(max-width:980px){
   .hero{grid-template-columns:1fr .82fr}
-  .hero-art{min-height:400px;max-width:440px}
+  .hero-art-wrap{min-height:0;max-width:400px}
+  .hero-art{width:74%;height:min(340px,42vw);min-height:280px;max-width:320px}
+  .hero-ring{display:none}
   .experience{grid-template-columns:1fr}
   .experience-visual{order:-1}
-  .pass-grid{grid-template-columns:1fr}
+  .pass-ticket{grid-template-columns:1fr}
+  .pass-ticket-stub{border-left:0;border-top:2px dashed rgba(42,35,24,.22)}
+  .pass-ticket-notch{display:none}
   .faq{grid-template-columns:1fr}
   .connect{grid-template-columns:1fr}
 }
@@ -292,18 +335,16 @@ img{-webkit-user-drag:none;user-select:none}
   .menu-toggle{display:block}
   .mobile-menu{top:70px}
   .hero{display:block;min-height:0;padding-top:78px}
-  .hero-art{height:440px;min-height:0;max-width:360px;margin-top:65px}
+  .hero-art-wrap{min-height:0;max-width:340px;margin-top:65px}
+  .hero-art{width:78%;height:min(360px,80vw);min-height:0;max-width:280px}
   .hero-actions{margin-bottom:44px}
   .hero-proof{flex-wrap:wrap;gap:8px}
   .scroll-cue{display:none}
   .section-pad{padding-top:88px;padding-bottom:88px}
   .section-heading{display:block;margin-bottom:42px}
   .section-heading>p{margin-top:26px}
-  .artist-row{grid-template-columns:35px 1fr;min-height:132px;padding:16px 0}
-  .artist-row:hover{padding-inline:10px}
-  .artist-meta{grid-column:2;text-align:left;margin-top:12px;display:flex;align-items:center;justify-content:space-between}
-  .artist-meta span{margin:0}
-  .artist-name h3{font-size:32px}
+  .artist-grid{grid-template-columns:1fr}
+  .pass-ticket-stub{padding-top:34px}
   .night-details{gap:20px 30px}
   .night-date{gap:12px}
   .connect{display:block}
@@ -320,7 +361,7 @@ img{-webkit-user-drag:none;user-select:none}
 }
 @media(max-width:450px){
   h1{font-size:46px}
-  .hero-art{height:380px}
+  .hero-art{height:300px}
   .hero-date strong{font-size:42px}
   .night-day{font-size:78px}
   h2{font-size:40px}
@@ -328,6 +369,6 @@ img{-webkit-user-drag:none;user-select:none}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
-  .button,.artist-row,.social-row a,.hero-embers span,.scroll-cue span,.moment-motif,.preloader,.preloader-mark,.preloader-mark img,.preloader-mark span::after{animation:none;transition:none}
+  .button,.artist-card,.social-row a,.hero-embers span,.hero-ring,.scroll-cue span,.moment-motif,.mystery-seal::after,.mystery-sparks i,.preloader,.preloader-mark,.preloader-mark img,.preloader-mark span::after{animation:none;transition:none}
   .preloader{display:none}
 }
