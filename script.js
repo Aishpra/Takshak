@@ -46,13 +46,25 @@
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').split('.')[0]}Z`,
       'DTSTART:20261003T160000','DTEND:20261003T223000',
       'SUMMARY:Takshak Live — Dharan 2026','LOCATION:Dharan Cricket Stadium\\, Dharan',
-      'DESCRIPTION:Bipul Chettri\\, Albatross and Pahelo Batti Muni live in Dharan.',
+      'DESCRIPTION:Bipul Chettri\\, Albatross\\, Pahelo Batti Muni and one surprise act\\, live in Dharan.',
       'END:VEVENT','END:VCALENDAR'
     ].join('\r\n');
     const blob=new Blob([ics],{type:'text/calendar'});
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a'); a.href=url; a.download='takshak-live-2026.ics'; document.body.appendChild(a); a.click();
     a.remove(); URL.revokeObjectURL(url);
+  });
+
+  /* Mystery 4th-act reveal: native <details> works with no JS; this just adds the spark-burst flourish + a tracked event. */
+  const mysteryCard=$('.mystery-card');
+  mysteryCard?.addEventListener('toggle',()=>{
+    if(!mysteryCard.open) return;
+    takshakTrack('MysteryArtistReveal',{});
+    const sparks=$('.mystery-sparks',mysteryCard);
+    if(!sparks || reducedMotion) return;
+    sparks.classList.remove('is-bursting');
+    void sparks.offsetWidth;
+    sparks.classList.add('is-bursting');
   });
 
   /* Guest list email capture — demo only. Production: POST to a protected WordPress REST/AJAX endpoint. */
